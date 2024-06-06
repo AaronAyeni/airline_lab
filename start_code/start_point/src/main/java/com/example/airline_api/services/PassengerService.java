@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class PassengerService {
     @Autowired
-    private PassengerRepository passengerRepository;
+    PassengerRepository passengerRepository;
 
     public Passenger addPassenger(Passenger passenger) {
         return passengerRepository.save(passenger);

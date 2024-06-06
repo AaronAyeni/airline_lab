@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookingService {
     @Autowired
-    private BookingRepository bookingRepository;
+    BookingRepository bookingRepository;
     @Autowired
-    private PassengerRepository passengerRepository;
+    PassengerRepository passengerRepository;
     @Autowired
-    private FlightRepository flightRepository;
+    FlightRepository flightRepository;
 
     public Booking bookFlight(Long passengerId, Long flightId, int seatNumber, String mealPreference) {
         Passenger passenger = passengerRepository.findById(passengerId).orElseThrow();
@@ -28,6 +28,13 @@ public class BookingService {
         booking.setSeatNumber(seatNumber);
         booking.setMealPreference(mealPreference);
 
+        return bookingRepository.save(booking);
+    }
+
+    public Booking updateMealPreference(Long bookingId, String mealPreference) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+        booking.setMealPreference(mealPreference);
         return bookingRepository.save(booking);
     }
 }

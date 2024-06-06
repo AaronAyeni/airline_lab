@@ -9,6 +9,8 @@ import com.example.airline_api.repositories.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookingService {
     @Autowired
@@ -36,5 +38,17 @@ public class BookingService {
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
         booking.setMealPreference(mealPreference);
         return bookingRepository.save(booking);
+    }
+
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
+    }
+
+    public List<Booking> getBookingsByPassengerId(Long passengerId) {
+        return bookingRepository.findByPassengerId(passengerId);
+    }
+
+    public List<Booking> getBookingsByFlightId(Long flightId) {
+        return bookingRepository.findByFlightId(flightId);
     }
 }

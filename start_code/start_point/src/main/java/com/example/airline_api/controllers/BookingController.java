@@ -18,10 +18,24 @@ public class BookingController {
 
     @GetMapping
     public ResponseEntity<List<Booking>> getAllBookings(){
-        return null;
+        List<Booking> bookings = bookingService.getAllBookings();
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
-    // TODO: Add details of a new booking
+    @GetMapping("/passenger/{passengerId}")
+    public ResponseEntity<List<Booking>> getBookingsByPassengerId(@PathVariable Long passengerId) {
+        List<Booking> bookings = bookingService.getBookingsByPassengerId(passengerId);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+
+    @GetMapping("/flight/{flightId}")
+    public ResponseEntity<List<Booking>> getBookingsByFlightId(@PathVariable Long flightId) {
+        List<Booking> bookings = bookingService.getBookingsByFlightId(flightId);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+
+
+
     @PostMapping(value = "/{id}")
     public ResponseEntity<Booking> addNewBooking(@RequestParam Long passengerId, @RequestParam Long flightId,
                                                  @RequestParam int seatNumber, @RequestParam String mealPreference){
@@ -29,10 +43,10 @@ public class BookingController {
         return new ResponseEntity<>(booking, HttpStatus.CREATED);
     }
 
-    // TODO: Extension - Update passenger meal preference
-    @PatchMapping
-    public ResponseEntity<Booking> updateMealPreference(){
-        return null;
-    }
 
+    @PutMapping(value = "/{id}/meal-preference")
+    public ResponseEntity<Booking> updateMealPreference(@PathVariable Long id, @RequestParam String mealPreference) {
+        Booking updatedBooking = bookingService.updateMealPreference(id, mealPreference);
+        return new ResponseEntity<>(updatedBooking, HttpStatus.OK);
+    }
 }

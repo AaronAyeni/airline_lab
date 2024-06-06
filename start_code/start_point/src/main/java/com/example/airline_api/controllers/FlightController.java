@@ -43,10 +43,17 @@ public class FlightController {
         return new ResponseEntity<>(savedFlight, HttpStatus.CREATED);
     }
 
-    // TODO: Extension - Cancel flight
+
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity cancelFlight(){
-        return null;
+    public ResponseEntity<Void> cancelFlight(@PathVariable Long id){
+        flightService.cancelFlight(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Flight>> getFlightsByDestination(@RequestParam String destination) {
+        List<Flight> flights = flightService.getFlightsByDestination(destination);
+        return new ResponseEntity<>(flights, HttpStatus.OK);
     }
 
 }

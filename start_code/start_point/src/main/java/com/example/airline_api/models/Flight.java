@@ -32,14 +32,14 @@ public class Flight {
 
     @OneToMany(mappedBy = "flight")
     @JsonIgnoreProperties({"flight"})
-    private List<Passenger> passengers;
+    private List<Booking> bookings;
 
     public Flight(String destination, int capacity, LocalDate departureDate, LocalTime departureTime) {
         this.destination = destination;
         this.capacity = capacity;
         this.departureDate = departureDate;
         this.departureTime = departureTime;
-        this.passengers = new ArrayList<>();
+        this.bookings = new ArrayList<>();
     }
 
     public Flight() {
@@ -85,11 +85,11 @@ public class Flight {
         this.departureTime = departureTime;
     }
 
-    public List<Passenger> getPassengers() {
-        return passengers;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setPassengers(List<Passenger> passengers) {
-        this.passengers = passengers;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }
